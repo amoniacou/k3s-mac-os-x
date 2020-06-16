@@ -12,4 +12,4 @@ Just run install.sh:
 
 ### Support
 
-<a href="https://amoniac.eu" target="_blank"><img src="https://raw.github.com/amoniacou/k3s-mac-os-x/master/senthesized_by_amoniac.png" alt="Sponsored by Amoniac OÜ"/></a>
+<a href="https://amoniac.eu" target="_blank"><img src="https://github.com/amoniacou/k3s-mac-os-x/blob/master/synthesized_by_amoniac.png?raw=true" alt="Sponsored by Amoniac OÜ" width="210"/></a>
