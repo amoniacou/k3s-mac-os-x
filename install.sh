@@ -85,7 +85,7 @@ write_files:
           - http://${registry_domain}:${registry_port}
   path: $target
 runcmd:
- - '\curl -sfL https://get.k3s.io | K3S_CLUSTER_SECRET=$CLUSTER_SECRET K3S_KUBECONFIG_MODE=644 sh -'
+ - '\curl -sfL https://get.k3s.io | K3S_CLUSTER_SECRET=$CLUSTER_SECRET K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="--disable traefik" sh -'
 EOM
 
 echo "$CLOUDINIT_TEMPLATE" > "${NAME}-cloud-init.yaml"
