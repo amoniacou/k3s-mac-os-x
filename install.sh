@@ -50,6 +50,12 @@ write_files:
       name: cert-manager
   path: $manifests/0-cert-manager-namespace.yml
 - content: |
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: ingress-nginx
+  path: $manifests/0-ingress-nginx-namespace.yml
+- content: |
     apiVersion: helm.cattle.io/v1
     kind: HelmChart
     metadata:
@@ -78,6 +84,20 @@ write_files:
       set:
         installCRDs: "true"
   path: $manifests/2-cert-manager.yml
+- content: |
+    apiVersion: helm.cattle.io/v1
+    kind: HelmChart
+    metadata:
+      name: nginx-ingress
+      namespace: kube-system
+    spec:
+      chart: ingress-nginx
+      repo: http://kubernetes.github.io/ingress-nginx
+      targetNamespace: ingress-nginx
+      version: 2.11.2
+      set:
+       controller.publishService.enabled: "true"
+  path: $manifests/3-nginx-ingress.yml
 - content: |
     mirrors:
       "${registry_domain}:${registry_port}":
