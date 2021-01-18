@@ -66,7 +66,8 @@ write_files:
       name: registry
       namespace: kube-system
     spec:
-      chart: stable/docker-registry
+      chart: docker-registry
+      repo: https://helm.twun.io
       targetNamespace: default
       set:
         persistence.enabled: "true"
