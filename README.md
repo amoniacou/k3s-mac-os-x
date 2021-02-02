@@ -1,13 +1,21 @@
 # k3s-mac-os-x
 
-Simple script to install local kubernetes cluster on mac os x via multipass
+Simple script to install local kubernetes cluster on mac os x via multipass and ubuntu via local run
 
-## Usage
+## Usage for mac os
 
-Just run install.sh:
+Just run macos.sh:
 
 ```sh
-./install.sh
+./macos.sh
+```
+
+## Usage for ubuntu
+
+Just run ubuntu.sh with sudo:
+
+```sh
+sudo ./ubuntu.sh
 ```
 
 ### Support
