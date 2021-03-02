@@ -89,8 +89,6 @@ domain-needed
 bogus-priv
 port=53
 cache-size=1000
-bind-dinamic
-listen-address=0.0.0.0
 server=8.8.8.8
 server=8.8.4.4
 address=/test/$ip
