@@ -75,3 +75,25 @@ mirrors:
       - http://${registry_domain}:${registry_port}
 EOF
 \curl -sfL https://get.k3s.io | K3S_CLUSTER_SECRET=$CLUSTER_SECRET K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="--disable traefik" sh -
+echo "Disabling systemd dns resolver"
+apt-get update
+systemctl disable systemd-resolved
+systemctl stop systemd-resolved
+rm /etc/resolv.conf
+echo nameserver 8.8.8.8 | tee /etc/resolv.conf
+apt install -y dnsmasq
+ip=$(hostname --all-ip-addresses | awk '{print $1}')
+cat > /etc/dnsmasq.conf << EOF
+no-resolv
+domain-needed
+bogus-priv
+port=53
+cache-size=1000
+bind-dinamic
+listen-address=0.0.0.0
+server=8.8.8.8
+server=8.8.4.4
+address=/test/$ip
+EOF
+systemctl restart dnsmasq
+echo "nameserver $ip" | tee /etc/resolv.conf
