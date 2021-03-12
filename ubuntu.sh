@@ -1,4 +1,6 @@
 #!/bin/bash
+apt-get update
+apt install -y curl kubectl helm
 CLUSTER_SECRET=""
 SED="sed -i\"\""
 
