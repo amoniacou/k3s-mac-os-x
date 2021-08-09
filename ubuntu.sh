@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt install -y curl kubectl helm
+apt install -y curl dnsmasq
 CLUSTER_SECRET=""
 SED="sed -i\"\""
 
@@ -78,12 +78,10 @@ mirrors:
 EOF
 \curl -sfL https://get.k3s.io | K3S_CLUSTER_SECRET=$CLUSTER_SECRET K3S_KUBECONFIG_MODE=644 INSTALL_K3S_EXEC="--disable traefik" sh -
 echo "Disabling systemd dns resolver"
-apt-get update
 systemctl disable systemd-resolved
 systemctl stop systemd-resolved
 rm /etc/resolv.conf
 echo nameserver 8.8.8.8 | tee /etc/resolv.conf
-apt install -y dnsmasq
 ip=$(hostname --all-ip-addresses | awk '{print $1}')
 cat > /etc/dnsmasq.conf << EOF
 no-resolv
