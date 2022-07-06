@@ -48,7 +48,7 @@ spec:
   chart: cert-manager
   repo: https://charts.jetstack.io
   targetNamespace: cert-manager
-  version: v1.1
+  version: v1.8.2
   set:
     installCRDs: "true"
 EOF
@@ -61,9 +61,9 @@ metadata:
   namespace: kube-system
 spec:
   chart: ingress-nginx
-  repo: http://kubernetes.github.io/ingress-nginx
+  repo: https://kubernetes.github.io/ingress-nginx
   targetNamespace: ingress-nginx
-  version: 3.20.1
+  version: 4.1.4
   set:
    controller.publishService.enabled: "true"
 EOF
@@ -78,6 +78,12 @@ EOF
 echo "Create a local registry"
 k3d registry create k3s.localhost --port 0.0.0.0:32000 || exit 1
 echo "Create a cluster"
-k3d cluster create k3s -p "80:80@loadbalancer" -p "443:443@loadbalancer" --wait --volume "${manifests}:/var/lib/rancher/k3s/server/manifests@server[0];agent[*]" --registry-use k3d-k3s.localhost:32000 --k3s-server-arg '--no-deploy=traefik' --image rancher/k3s:v1.20.4-k3s1 || exit 1
+k3d cluster create k3s -p "80:80@loadbalancer" -p "443:443@loadbalancer" --wait \
+  --volume "${manifests}:/var/lib/rancher/k3s/server/manifests@server:0" \
+  --volume "${manifests}:/var/lib/rancher/k3s/server/manifests@agent:*" \
+  --registry-use k3d-k3s.localhost:32000 \
+  --k3s-arg '--no-deploy=traefik@server:0' \
+  --k3s-arg '--no-deploy=traefik@agent:*' \
+  --image rancher/k3s:v1.23.7-k3s1 || exit 1
 echo "Merge k3s config"
 k3d kubeconfig merge k3s --kubeconfig-switch-context || exit 1
