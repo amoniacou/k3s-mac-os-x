@@ -8,20 +8,10 @@ Simple script to install local kubernetes cluster on mac os x via multipass and 
 docker container run -d --name docker.test --restart always -p 32000:5000 registry:2
 ```
 
-## Usage for mac os
-
-Just run macos.sh:
+## Usage for mac os and linux
 
 ```sh
-./macos.sh
-```
-
-## Usage for ubuntu
-
-Just run ubuntu.sh with sudo:
-
-```sh
-sudo ./ubuntu.sh
+./k3d.sh
 ```
 
 ### Support
