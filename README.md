@@ -2,6 +2,10 @@
 
 Simple script to install local kubernetes cluster on mac os x via multipass and ubuntu via local run
 
+## Requirements
+
+[k3d](https://k3d.io)
+
 ## local docker registry
 
 ```sh
